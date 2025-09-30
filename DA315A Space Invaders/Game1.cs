@@ -53,6 +53,7 @@ namespace DA315A_Space_Invaders
             bulletSprite = Content.Load<Texture2D>("Bullet");
             player = new Player(playerSprite, new Vector2((windowWidth - playerSprite.Width) / 2, windowHeight - playerSprite.Height), windowWidth);
             enemyList = new List<Enemy>();
+            bulletList = new List<Bullet>();
 
             for (int row = 0; row < 3; row++)
             {
@@ -69,11 +70,25 @@ namespace DA315A_Space_Invaders
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             Window.Title = "Space Invaders | Score: " + score;
-            player.Update();
+            player.Update(bulletList, bulletSprite);
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Update();
             }
+
+            foreach (Bullet bullet in bulletList)
+            {
+                bullet.Update();
+            }
+
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                if (bulletList[i].IsOutOfBounds())
+                {
+                    bulletList.RemoveAt(i);
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -87,6 +102,11 @@ namespace DA315A_Space_Invaders
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Draw(spriteBatch);
+            }
+
+            foreach (Bullet bullet in bulletList)
+            {
+                bullet.Draw(spriteBatch);
             }
 
             spriteBatch.End();

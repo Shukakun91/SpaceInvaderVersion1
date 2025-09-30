@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace DA315A_Space_Invaders
 {
@@ -10,6 +11,8 @@ namespace DA315A_Space_Invaders
         private Vector2 playerPosition;
         private int playerSpeedX = 0;
         private int windowWidth;
+        private int shootCooldown = 20;
+        private int shootTimer = 0;
 
         public Player(Texture2D playerSprite, Vector2 playerPosition, int windowWidth)
         {
@@ -18,8 +21,17 @@ namespace DA315A_Space_Invaders
             this.windowWidth = windowWidth;
         }
 
-        public void Update()
+        public void Update(List<Bullet> bulletList, Texture2D bulletSprite)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && shootTimer <= 0)
+            {
+                bulletList.Add(new Bullet(bulletSprite, new Vector2(playerPosition.X + (playerSprite.Width / 2) - (bulletSprite.Width / 2), playerPosition.Y - bulletSprite.Height)));
+                shootTimer = shootCooldown;
+            }
+            else
+            {
+                shootTimer -= 1;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 playerSpeedX = 5;
