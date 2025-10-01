@@ -7,12 +7,21 @@ namespace DA315A_Space_Invaders
     {
         private Texture2D bulletSprite;
         private Vector2 bulletPosition;
+        private Rectangle hitbox;
         private bool outOfBounds = false;
 
         public Bullet(Texture2D bulletSprite, Vector2 bulletPosition)
         {
             this.bulletSprite = bulletSprite;
             this.bulletPosition = bulletPosition;
+            hitbox = new Rectangle((int)bulletPosition.X, (int)bulletPosition.Y, bulletSprite.Width, bulletSprite.Height);
+        }
+
+        public Rectangle GetHitbox()
+        {
+            hitbox.X = (int)bulletPosition.X;
+            hitbox.Y = (int)bulletPosition.Y;
+            return hitbox;
         }
 
         public float GetPositionY()

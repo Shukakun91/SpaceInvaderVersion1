@@ -9,6 +9,7 @@ namespace DA315A_Space_Invaders
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private HitboxManager hitboxManager;
 
         private int windowWidth = 736;
         private int windowHeight = 1030;
@@ -25,6 +26,7 @@ namespace DA315A_Space_Invaders
         private Texture2D bulletSprite;
 
         private int score = 0;
+        private int lives = 10;
         private Player player;
         public List<Enemy> enemyList;
         public List<Bullet> bulletList;
@@ -47,8 +49,9 @@ namespace DA315A_Space_Invaders
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            hitboxManager = new HitboxManager();
 
-            playerSprite = Content.Load<Texture2D>("Ship_01-1");
+        playerSprite = Content.Load<Texture2D>("Ship_01-1");
             enemySprite = Content.Load<Texture2D>("VirusBlue");
             bulletSprite = Content.Load<Texture2D>("Bullet");
             player = new Player(playerSprite, new Vector2((windowWidth - playerSprite.Width) / 2, windowHeight - playerSprite.Height), windowWidth);
@@ -69,7 +72,7 @@ namespace DA315A_Space_Invaders
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Window.Title = "Space Invaders | Score: " + score;
+            Window.Title = "Space Invaders | Score: " + score + " | Lives: " + lives;
             player.Update(bulletList, bulletSprite);
             foreach (Enemy enemy in enemyList)
             {
@@ -86,6 +89,28 @@ namespace DA315A_Space_Invaders
                 if (bulletList[i].IsOutOfBounds())
                 {
                     bulletList.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                    if (hitboxManager.CheckCollision(bulletList[i].GetHitbox(), enemyList[j].GetHitbox()))
+                    {
+                        bulletList.RemoveAt(i);
+                        enemyList.RemoveAt(j);
+                        break;
+                        #region Personal commentary
+                        /*
+                        I initially encountered an error here due to modifying the list while iterating through it. 
+                        AI suggested that I add the break to exit the loop when detecting a collision.
+                        This seems to have fixed the issue and the game seems to be working as intended.
+                        However, am I correct in thinking that this means we can only detect a single collision per frame?
+                        If so, that seems like a big enough problem that I'll probably want to use a different approach in future projects.
+                        */
+                        #endregion
+                    }
                 }
             }
 
