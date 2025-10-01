@@ -26,7 +26,7 @@ namespace DA315A_Space_Invaders
         private Texture2D bulletSprite;
 
         private int score = 0;
-        private int lives = 10;
+        private int lives = 72;
         private Player player;
         public List<Enemy> enemyList;
         public List<Bullet> bulletList;
@@ -51,7 +51,7 @@ namespace DA315A_Space_Invaders
             spriteBatch = new SpriteBatch(GraphicsDevice);
             hitboxManager = new HitboxManager();
 
-        playerSprite = Content.Load<Texture2D>("Ship_01-1");
+        playerSprite = Content.Load<Texture2D>("DrMarioHead");
             enemySprite = Content.Load<Texture2D>("VirusBlue");
             bulletSprite = Content.Load<Texture2D>("Bullet");
             player = new Player(playerSprite, new Vector2((windowWidth - playerSprite.Width) / 2, windowHeight - playerSprite.Height), windowWidth);
@@ -77,6 +77,15 @@ namespace DA315A_Space_Invaders
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Update();
+            }
+
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                if (enemyList[i].GetHitbox().Y > windowHeight)
+                {
+                    enemyList.RemoveAt(i);
+                    lives -= 1;
+                }
             }
 
             foreach (Bullet bullet in bulletList)
@@ -108,6 +117,8 @@ namespace DA315A_Space_Invaders
                         This seems to have fixed the issue and the game seems to be working as intended.
                         However, am I correct in thinking that this means we can only detect a single collision per frame?
                         If so, that seems like a big enough problem that I'll probably want to use a different approach in future projects.
+                        Another suggestion was to iterate backwards through the list, which makes sense.
+                        At least I can't think of any way that that could cause problems.
                         */
                         #endregion
                     }

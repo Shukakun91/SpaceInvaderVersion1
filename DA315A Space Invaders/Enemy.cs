@@ -25,7 +25,7 @@ namespace DA315A_Space_Invaders
 
         public void Update()
         {
-            enemyPosition.Y += 0.3f;
+            enemyPosition.Y += 0.6f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
