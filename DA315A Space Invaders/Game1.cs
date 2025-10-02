@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace DA315A_Space_Invaders
+namespace DA315A_Space_Invaders_V1
 {
     public class Game1 : Game
     {

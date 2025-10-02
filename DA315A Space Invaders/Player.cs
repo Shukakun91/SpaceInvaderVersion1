@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace DA315A_Space_Invaders
+namespace DA315A_Space_Invaders_V1
 {
     public class Player
     {
@@ -25,7 +25,7 @@ namespace DA315A_Space_Invaders
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && shootTimer <= 0)
             {
-                bulletList.Add(new Bullet(bulletSprite, new Vector2(playerPosition.X + (playerSprite.Width / 2) - (bulletSprite.Width / 2), playerPosition.Y - bulletSprite.Height)));
+                bulletList.Add(new Bullet(bulletSprite, new Vector2(playerPosition.X + playerSprite.Width / 2 - bulletSprite.Width / 2, playerPosition.Y - bulletSprite.Height)));
                 shootTimer = shootCooldown;
             }
             else
@@ -47,7 +47,7 @@ namespace DA315A_Space_Invaders
 
             float nextX = playerPosition.X + playerSpeedX;
 
-            if ((nextX < 0 || (nextX + playerSprite.Width) > windowWidth) == false)
+            if ((nextX < 0 || nextX + playerSprite.Width > windowWidth) == false)
             {
                 playerPosition.X += playerSpeedX;
             }

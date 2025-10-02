@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA315A Space Invaders", "DA315A Space Invaders.csproj", "{E5B117F3-3F6D-472A-8404-879C09A4C7B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA315A Space Invaders V1", "DA315A Space Invaders V1.csproj", "{E5B117F3-3F6D-472A-8404-879C09A4C7B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

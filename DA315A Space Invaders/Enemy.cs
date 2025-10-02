@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DA315A_Space_Invaders
+namespace DA315A_Space_Invaders_V1
 {
     public class Enemy
     {
